@@ -50,8 +50,9 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Generate configuration file
-        run: make defconfig
+      - name: Use Custom Configuration
+        run: |
+          [ -e .config ] && echo "Using custom .config"
 
       - name: Download packages
         run: make download -j16
