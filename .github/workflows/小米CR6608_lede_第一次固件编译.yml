@@ -8,8 +8,8 @@
 name: 小米CR6608_lede_第一次固件编译
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+  repository_dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: read
