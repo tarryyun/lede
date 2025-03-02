@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: OpenWrt-CI
+name: 小米CR6608第一次固件编译
 
 on:
   schedule:
