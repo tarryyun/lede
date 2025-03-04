@@ -1,4 +1,4 @@
-name: OpenWrt Custom Build
+name: 测试文件
 
 on:
   repository_dispatch:
