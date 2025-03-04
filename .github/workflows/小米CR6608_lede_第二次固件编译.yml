@@ -127,4 +127,16 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.run_number }}
-          name: OpenWrt Release ${{ g
+          name: OpenWrt Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+          body: |
+            OpenWrt Firmware Build - ${{ github.run_number }}
+            - 自动编译 OpenWrt 固件
+            - 包含所有最新依赖
+
+      - name: Upload Firmware to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.run_number }}
+          files: ./bin/targets/*/*.img.gz
