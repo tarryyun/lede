@@ -49,8 +49,17 @@ jobs:
 
       - name: Compile Firmware
         run: |
+          echo "Start compiling OpenWrt firmware..."
           make -j$(($(nproc) + 1)) V=s || make -j1 V=s
+          echo "====================="
+          echo "Disk space usage:"
           df -h
+          echo "====================="
+          echo "Disk usage inside build directory:"
+          du -sh ./build_dir
+          echo "====================="
+          echo "Listing bin directory contents:"
+          ls -lh ./bin/targets/
 
       - name: Organize Firmware Files
         run: |
@@ -73,10 +82,20 @@ jobs:
           path: ./artifact/package/
 
       - name: Upload Firmware
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpenWrt_firmware
-          path: ./bin/targets/
+        run: |
+          # Ensure there are firmware files in the output directory
+          if [ -d "./bin/targets/" ] && [ "$(ls -A ./bin/targets/)" ]; then
+            echo "Uploading firmware files..."
+            ls -lh ./bin/targets/
+            # Upload firmware files
+            uses: actions/upload-artifact@v4
+            with:
+              name: OpenWrt_firmware
+              path: ./bin/targets/*/*
+          else
+            echo "No firmware files found in the bin/targets directory!"
+            exit 1
+          fi
 
       - name: Generate Release Tag
         id: tag
