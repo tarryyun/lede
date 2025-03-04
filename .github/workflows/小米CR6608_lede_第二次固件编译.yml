@@ -32,7 +32,7 @@ jobs:
         run: |
           docker rmi `docker images -q`
           sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
-          sudo -E apt-get -mark hold grub-efi-amd64-signed
+          sudo -E apt-mark hold grub-efi-amd64-signed
           sudo -E apt-get update
           sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* snap*
           sudo -E apt-get -y full-upgrade
